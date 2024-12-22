@@ -34,26 +34,26 @@
                 <p>
                     <label for="read">
                         Read:
-                        <input type="checkbox" name="read" id="read">
+                        <input type="checkbox" name="read" id="read" value = "false">
                     </label>
                 </p>
                 <p>
-                    <button type="submit" id="add" name="add">Add Book</button>
+                    <button type = "submit" class="pushable" id = "add-book">
+                        <span class="shadow"></span>
+                        <span class="edge"></span>
+                        <span class="front">Add it to your Library!</span>
+                    </button>
                 </p>
             </form>
         </dialog>
 
-        <button class="pushable">
+        <button class="pushable" id = "add">
             <span class="shadow"></span>
             <span class="edge"></span>
             <span class="front">Add Book</span>
         </button>
 
         <div class="cards">
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
         </div>
     </div>
     <footer></footer>

@@ -176,6 +176,7 @@ dialog label{
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;
+  font-size: 20px;
   align-items: end;
   color: white;
 }
@@ -205,3 +206,25 @@ dialog input[type = "checkbox"]
   margin-bottom: 5px;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 40px 30px 10px 30px;
+  font-family: Doner;
+  font-size: 23px;
+}
+.card>div{
+  margin-bottom: 10px;
+  
+}
+
+.delete {
+  position: relative;
+  background-image: url('icons/delete_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg?fill=black');
+  background-repeat: no-repeat;
+  height: 30px;
+  color: black;
+  width: 30px;
+  align-self: flex-end;
+}
