@@ -1,0 +1,207 @@
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  * {
+    margin: 0;
+  }
+  
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  
+  input, button, textarea, select {
+    font: inherit;
+  }
+  
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  
+  p {
+    text-wrap: pretty;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+  
+  #root, #__next {
+    isolation: isolate;
+  }
+  
+
+body {
+    background-color: rgb(0, 0, 0);
+}
+
+@font-face {
+    font-family: Doner;
+    src: url(fonts/doner-regulardisplay.woff2) format(woff2);
+}
+
+header {
+    color: white;
+    font-family: Doner;
+    font-weight: 900;
+    font-size: 5em;
+    letter-spacing: 4px;
+    text-align: center;
+    padding: 10px;
+    text-shadow: 3px 3px gray;
+    margin-top: 10px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.pushable {
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 0;
+    align-self: center;
+    margin-top: 4vh;
+}
+
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: gray;
+  border-radius: 5px;
+}
+
+.front {
+  border-radius: 5px;
+  font-family: Doner;
+  font-weight: bold;
+  display: block;
+  position: relative;
+  padding: 12px 42px;
+  font-size: 15px;
+  color: rgb(0, 0, 0);
+  background: rgb(255, 255, 255);
+  transform: translateY(-4px) translateX(-4px);
+  transition: transform 60ms;
+}
+
+
+.pushable:hover .front{
+  transform :translateX(-4px) translateY(-4px);
+}
+.pushable:active .front {
+  transform: translateY(0px) translateX(0px);
+}
+
+.cards{
+    display: grid;
+    margin: 30px 5vw;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  margin: 10px;
+  height: 300px;
+}
+
+
+dialog {
+  justify-self: center;
+  align-self: center;
+  color: white;
+  background-color: black;
+  font-family: Doner;
+  padding: 30px 30px;
+  border: solid 1px #ccc;
+  border-radius: 15px;
+  box-sizing: border-box;
+  animation: slideFromLeft 200ms ease-in-out;
+}
+
+dialog img {
+  justify-self: flex-end;
+}
+
+@keyframes slideFromLeft {
+  0% {
+    transform: translateX(-100vw) rotate(-90deg);
+    opacity: 0;
+  }
+  20% {
+    transform: translateX(-80vw) rotate(-70deg); 
+    opacity: 0.2;
+  }
+  40% {
+    transform: translateX(-60vw) rotate(-50deg); 
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(-50vw) rotate(-45deg); 
+    opacity: 0.5;
+  }
+  60% {
+    transform: translateX(-30vw) rotate(-30deg);
+    opacity: 0.6;
+  }
+  80% {
+    transform: translateX(-10vw) rotate(-15deg);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateX(0vw) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+dialog label{
+  margin: 30px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  color: white;
+}
+
+dialog input[type = "text"], input[type = "number"] {
+  margin: 0px 20px;
+  appearance: none;
+  background-color: black;
+  border: none;
+  border-bottom: 1px white solid;
+  color: white;
+}
+
+dialog input:focus {
+  outline: none;
+  border-bottom: 1px greenyellow solid;
+}
+
+dialog label[for = "read"]
+{
+  justify-content: flex-start;
+}
+
+dialog input[type = "checkbox"]
+{
+  margin-left: 2rem;
+  margin-bottom: 5px;
+}
+
