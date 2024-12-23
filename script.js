@@ -48,32 +48,48 @@ addBtn.addEventListener('click', () => {
 let card;
 
 console.log(myLibrary);
+
 function addCard() {
-    for (let book of myLibrary) {
-        card = document.createElement('div');
+    cards.innerHTML = "";
+    myLibrary.forEach((book, index) => {
+        const card = document.createElement('div');
+        card.dataset.index = index;
         card.classList.add('card');
+        
         const elements = ['title', 'author', 'pages', 'read'].map(prop => {
             const div = document.createElement('div');
             div.classList.add(prop);
             
-            div.textContent = prop === 'read' 
-                ? (book.read ? card.setAttribute('style', "color: blue") : card.setAttribute('style', "color: red"))
-                : `${prop.charAt(0).toUpperCase() + prop.slice(1)}: ${book[prop]}`;
-                
+            if (prop === 'read') {
+                div.textContent = book.read ? 'Read' : 'Not Read Yet';
+                card.style.color = book.read ? 'blue' : 'red';
+            } else {
+                div.textContent = `${prop.charAt(0).toUpperCase() + prop.slice(1)}: ${book[prop]}`;
+            }
+            
             return div;
         });
+        
         elements.forEach(element => card.appendChild(element));
-        cards.appendChild(card);
-        let deleteBook = document.createElement('div');
+        
+        const deleteBook = document.createElement('div');
         deleteBook.classList.add('delete');
+        
         card.appendChild(deleteBook);
-        deleteBook.addEventListener('click', () =>{
-            card.remove();
-        });
-    }
+        cards.appendChild(card);
+    });
 }
 
+cards.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete')) {
+        const card = e.target.closest('.card');
+        const index = parseInt(card.dataset.index);
+        myLibrary.splice(index, 1);
+        addCard();
+    }
+});
 
+addCard();
 
 const addBook = document.querySelector('#add-book');
 const title = document.querySelector('#title');
@@ -81,24 +97,62 @@ const author = document.querySelector('#author');
 const pages = document.querySelector("#pages");
 const read = document.querySelector('#read');
 
-addBook.addEventListener('click',(e) => {
-    let book;
-    console.log(pages.value);
-    if (title.value && author.value && pages.value)
-    {
-        book = new Book(title.value, author.value, pages.value, false);
+addBook.addEventListener('click', (e) => {
+    e.preventDefault();
+    clearValidationMessages();
+
+    const isValid = validateFields();
+
+    if(isValid) {
+        const book = new Book(title.value, author.value, parseInt(pages.value), read.checked);
+        addBooktoLibrary(book);
+        addCard();
+        resetForm();
     }
-    else
-    {
-        book = new Book(title.value, author.value, pages.value, read.checked);
-    }
-    addBooktoLibrary(book);
-    console.log(read.checked);
-    addCard();
 });
 
+function validateFields() {
+    let isValid = true;
+    
+    if (!title.value.trim()) {
+        setFieldError(title, "Please enter a title");
+        isValid = false;
+    }
+    
+    if (!author.value.trim()) {
+        setFieldError(author, "Please enter an author");
+        isValid = false;
+    }
+    
+    if (!pages.value.trim()) {
+        setFieldError(pages, "Please enter the number of pages");
+        isValid = false;
+    } else if (isNaN(pages.value) || parseInt(pages.value) <= 0) {
+        setFieldError(pages, "Please enter a valid number of pages");
+        isValid = false;
+    }
+    
+    return isValid;
+}
+
+function setFieldError(element, message) {
+    element.setCustomValidity(message);
+    element.reportValidity();
+}
+
+function clearValidationMessages() {
+    [title, author, pages].forEach(element => {
+        element.setCustomValidity('');
+    });
+}
 
 
+function resetForm() {
+    title.value = '';
+    author.value = '';
+    pages.value = '';
+    read.checked = false;
+}
 
 
 
