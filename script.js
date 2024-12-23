@@ -108,7 +108,9 @@ addBook.addEventListener('click', (e) => {
         addBooktoLibrary(book);
         addCard();
         resetForm();
+        dialog.close();
     }
+    
 });
 
 function validateFields() {
