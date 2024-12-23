@@ -41,12 +41,6 @@ closeBtn.addEventListener("click", () => {
 const cards = document.querySelector(".cards");
 const addBtn = document.querySelector("#add");
 
-addBtn.addEventListener('click', () => {
-
-});
-
-let card;
-
 console.log(myLibrary);
 
 function addCard() {
@@ -72,13 +66,28 @@ function addCard() {
         
         elements.forEach(element => card.appendChild(element));
         
+        const buttons = document.createElement('div');
         const deleteBook = document.createElement('div');
         deleteBook.classList.add('delete');
+        buttons.classList.add('buttons');
         
-        card.appendChild(deleteBook);
+        const label = document.createElement('label');
+        label.className = 'switch';
+        const input = document.createElement('input');
+        const span = document.createElement('span');
+        span.className = 'slider round';
+
+        label.appendChild(input);
+        label.appendChild(span);
+
+        buttons.appendChild(label);
+        buttons.appendChild(deleteBook);
+        card.appendChild(buttons);
         cards.appendChild(card);
     });
 }
+
+
 
 cards.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete')) {
@@ -143,6 +152,7 @@ function setFieldError(element, message) {
 }
 
 function clearValidationMessages() {
+    // Add event listener to the toggle switch
     [title, author, pages].forEach(element => {
         element.setCustomValidity('');
     });
