@@ -49,6 +49,20 @@ function addCard() {
         const card = document.createElement('div');
         card.dataset.index = index;
         card.classList.add('card');
+        const buttons = document.createElement('div');
+        const deleteBook = document.createElement('div');
+        deleteBook.classList.add('delete');
+        buttons.classList.add('buttons');
+        
+        const label = document.createElement('label');
+        label.className = 'switch';
+        const input = document.createElement('input');
+        input.type = "checkbox";
+        input.className = 'ReadCheck'
+        const span = document.createElement('span');
+        span.className = 'slider round';
+
+        
         
         const elements = ['title', 'author', 'pages', 'read'].map(prop => {
             const div = document.createElement('div');
@@ -57,6 +71,7 @@ function addCard() {
             if (prop === 'read') {
                 div.textContent = book.read ? 'Read' : 'Not Read Yet';
                 card.style.color = book.read ? 'blue' : 'red';
+                input.checked = book.read;
             } else {
                 div.textContent = `${prop.charAt(0).toUpperCase() + prop.slice(1)}: ${book[prop]}`;
             }
@@ -66,17 +81,6 @@ function addCard() {
         
         elements.forEach(element => card.appendChild(element));
         
-        const buttons = document.createElement('div');
-        const deleteBook = document.createElement('div');
-        deleteBook.classList.add('delete');
-        buttons.classList.add('buttons');
-        
-        const label = document.createElement('label');
-        label.className = 'switch';
-        const input = document.createElement('input');
-        const span = document.createElement('span');
-        span.className = 'slider round';
-
         label.appendChild(input);
         label.appendChild(span);
 
@@ -95,6 +99,16 @@ cards.addEventListener('click', (e) => {
         const index = parseInt(card.dataset.index);
         myLibrary.splice(index, 1);
         addCard();
+    }
+
+    if (e.target.classList.contains('ReadCheck')){
+        const card = e.target.closest('.card');
+        const index = parseInt(card.dataset.index);
+        const book = myLibrary[index];
+        book.read = !book.read;
+
+        addCard();
+
     }
 });
 
